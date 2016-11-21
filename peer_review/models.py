@@ -6,7 +6,7 @@ from django.db import models
 # Feel free to rename the models, but don't rename db_table values or field names.
 
 class PeerReviewAssignment(models.Model):
-    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=True)   
+    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=False)   
     submissionquestion = models.TextField(db_column='submissionQuestion')   # This field type is a guess.
     submissiontype = models.CharField(db_column='submissionType', max_length=64)  
     submissionstartdate = models.DateTimeField(db_column='submissionStartDate')  
@@ -30,7 +30,7 @@ class PeerReviewAssignment(models.Model):
     calibrationthresholdmse = models.TextField(db_column='calibrationThresholdMSE')   # This field type is a guess.
     calibrationthresholdscore = models.TextField(db_column='calibrationThresholdScore')   # This field type is a guess.
     autoassignessaytopic = models.TextField(db_column='autoAssignEssayTopic')   # This field type is a guess.
-    extracalibrations = models.IntegerField(db_column='extraCalibrations', blank=True, null=True)  
+    extracalibrations = models.IntegerField(db_column='extraCalibrations', blank=True, null=False)  
     essaywordlimit = models.IntegerField(db_column='essayWordLimit')  
     calibrationstartdate = models.DateTimeField(db_column='calibrationStartDate')  
     calibrationstopdate = models.DateTimeField(db_column='calibrationStopDate')  
@@ -40,7 +40,7 @@ class PeerReviewAssignment(models.Model):
 
 
 class PeerReviewAssignmentAppealMessages(models.Model):
-    appealmessageid = models.IntegerField(db_column='appealMessageID', primary_key=True, blank=True, null=True)  
+    appealmessageid = models.IntegerField(db_column='appealMessageID', primary_key=True, blank=True, null=False)  
     appealtype = models.TextField(db_column='appealType')  
     matchid = models.IntegerField(db_column='matchID')  
     authorid = models.IntegerField(db_column='authorID')  
@@ -63,19 +63,19 @@ class PeerReviewAssignmentArticleResponseSettings(models.Model):
 
 
 class PeerReviewAssignmentArticleResponses(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
     articleindex = models.IntegerField(db_column='articleIndex')  
-    outline = models.TextField()  # # This field type is a guess.
-    response = models.TextField()  # # This field type is a guess.
+    outline = models.TextField()  # This field type is a guess.
+    response = models.TextField()  # This field type is a guess.
 
     class Meta:
         db_table = 'peer_review_assignment_article_responses'
 
 
 class PeerReviewAssignmentCalibrationMatches(models.Model):
-    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=True)  
+    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=False)  
     assignmentid = models.IntegerField(db_column='assignmentID')  
-    required = models.TextField()  # # This field type is a guess.
+    required = models.TextField()  # This field type is a guess.
 
     class Meta:
         db_table = 'peer_review_assignment_calibration_matches'
@@ -91,15 +91,15 @@ class PeerReviewAssignmentCalibrationPools(models.Model):
 
 
 class PeerReviewAssignmentCode(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
-    code = models.TextField()  # # This field type is a guess.
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
+    code = models.TextField()  # This field type is a guess.
 
     class Meta:
         db_table = 'peer_review_assignment_code'
 
 
 class PeerReviewAssignmentCodeSettings(models.Model):
-    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=True)  
+    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=False)  
     codelanguage = models.CharField(db_column='codeLanguage', max_length=255)  
     codeextension = models.CharField(db_column='codeExtension', max_length=10)  
     uploadonly = models.TextField(db_column='uploadOnly')   # This field type is a guess.
@@ -109,7 +109,7 @@ class PeerReviewAssignmentCodeSettings(models.Model):
 
 
 class PeerReviewAssignmentDemotionLog(models.Model):
-    userid = models.IntegerField(db_column='userID', primary_key=True, blank=True, null=True)  
+    userid = models.IntegerField(db_column='userID', primary_key=True, blank=True, null=False)  
     demotiondate = models.DateTimeField(db_column='demotionDate')  
     demotionthreshold = models.TextField(db_column='demotionThreshold')   # This field type is a guess.
 
@@ -137,16 +137,16 @@ class PeerReviewAssignmentEssaySettings(models.Model):
 
 
 class PeerReviewAssignmentEssays(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
-    text = models.TextField()  # # This field type is a guess.
-    topicindex = models.IntegerField(db_column='topicIndex', blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
+    text = models.TextField()  # This field type is a guess.
+    topicindex = models.IntegerField(db_column='topicIndex', blank=True, null=False)  
 
     class Meta:
         db_table = 'peer_review_assignment_essays'
 
 
 class PeerReviewAssignmentImages(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
     imgwidth = models.IntegerField(db_column='imgWidth')  
     imgheight = models.IntegerField(db_column='imgHeight')  
     imgdata = models.TextField(db_column='imgData')   # This field type is a guess.
@@ -176,7 +176,7 @@ class PeerReviewAssignmentInstructorReviewTouchTimes(models.Model):
 
 
 class PeerReviewAssignmentMatches(models.Model):
-    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=True)  
+    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=False)  
     submissionid = models.IntegerField(db_column='submissionID')  
     reviewerid = models.IntegerField(db_column='reviewerID')  
     instructorforced = models.TextField(db_column='instructorForced')   # This field type is a guess.
@@ -188,12 +188,12 @@ class PeerReviewAssignmentMatches(models.Model):
 
 
 class PeerReviewAssignmentQuestions(models.Model):
-    questionid = models.IntegerField(db_column='questionID', primary_key=True, blank=True, null=True)  
+    questionid = models.IntegerField(db_column='questionID', primary_key=True, blank=True, null=False)  
     assignmentid = models.IntegerField(db_column='assignmentID')  
     questionname = models.CharField(db_column='questionName', max_length=128)  
     questiontext = models.TextField(db_column='questionText')  
     questiontype = models.CharField(db_column='questionType', max_length=64)  
-    hidden = models.TextField()  # # This field type is a guess.
+    hidden = models.TextField()  # This field type is a guess.
     displaypriority = models.IntegerField(db_column='displayPriority')  
 
     class Meta:
@@ -204,7 +204,7 @@ class PeerReviewAssignmentRadioOptions(models.Model):
     questionid = models.IntegerField(db_column='questionID', primary_key=True)  
     index = models.IntegerField(primary_key=True)
     label = models.CharField(max_length=1024)
-    score = models.TextField()  # # This field type is a guess.
+    score = models.TextField()  # This field type is a guess.
 
     class Meta:
         db_table = 'peer_review_assignment_radio_options'
@@ -214,8 +214,8 @@ class PeerReviewAssignmentRadioOptions(models.Model):
 class PeerReviewAssignmentReviewAnswers(models.Model):
     matchid = models.IntegerField(db_column='matchID', primary_key=True)  
     questionid = models.IntegerField(db_column='questionID', primary_key=True)  
-    answerint = models.IntegerField(db_column='answerInt', blank=True, null=True)  
-    answertext = models.TextField(db_column='answerText', blank=True, null=True)  
+    answerint = models.IntegerField(db_column='answerInt', blank=True, null=False)  
+    answertext = models.TextField(db_column='answerText', blank=True, null=False)  
     reviewtimestamp = models.DateTimeField(db_column='reviewTimestamp')  
 
     class Meta:
@@ -226,8 +226,8 @@ class PeerReviewAssignmentReviewAnswers(models.Model):
 class PeerReviewAssignmentReviewAnswersDrafts(models.Model):
     matchid = models.IntegerField(db_column='matchID', primary_key=True)  
     questionid = models.IntegerField(db_column='questionID', primary_key=True)  
-    answerint = models.IntegerField(db_column='answerInt', blank=True, null=True)  
-    answertext = models.TextField(db_column='answerText', blank=True, null=True)  
+    answerint = models.IntegerField(db_column='answerInt', blank=True, null=False)  
+    answertext = models.TextField(db_column='answerText', blank=True, null=False)  
 
     class Meta:
         db_table = 'peer_review_assignment_review_answers_drafts'
@@ -235,10 +235,10 @@ class PeerReviewAssignmentReviewAnswersDrafts(models.Model):
 
 
 class PeerReviewAssignmentReviewMarks(models.Model):
-    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=True)  
-    score = models.TextField()  # # This field type is a guess.
-    comments = models.TextField(blank=True, null=True)
-    automatic = models.TextField()  # # This field type is a guess.
+    matchid = models.IntegerField(db_column='matchID', primary_key=True, blank=True, null=False)  
+    score = models.TextField()  # This field type is a guess.
+    comments = models.TextField(blank=True, null=False)
+    automatic = models.TextField()  # This field type is a guess.
     reviewpoints = models.TextField(db_column='reviewPoints')   # This field type is a guess.
     reviewmarktimestamp = models.DateTimeField(db_column='reviewMarkTimestamp')  
 
@@ -247,7 +247,7 @@ class PeerReviewAssignmentReviewMarks(models.Model):
 
 
 class PeerReviewAssignmentSpotChecks(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
     checkerid = models.IntegerField(db_column='checkerID')  
     status = models.TextField()
 
@@ -256,10 +256,10 @@ class PeerReviewAssignmentSpotChecks(models.Model):
 
 
 class PeerReviewAssignmentSubmissionMarks(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
-    score = models.TextField()  # # This field type is a guess.
-    comments = models.TextField(blank=True, null=True)
-    automatic = models.TextField()  # # This field type is a guess.
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
+    score = models.TextField()  # This field type is a guess.
+    comments = models.TextField(blank=True, null=False)
+    automatic = models.TextField()  # This field type is a guess.
     submissionmarktimestamp = models.DateTimeField(db_column='submissionMarkTimestamp')  
 
     class Meta:
@@ -268,7 +268,7 @@ class PeerReviewAssignmentSubmissionMarks(models.Model):
 
 
 class PeerReviewAssignmentSubmissions(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
     assignmentid = models.IntegerField(db_column='assignmentID')  
     authorid = models.IntegerField(db_column='authorID')  
     nopublicuse = models.TextField(db_column='noPublicUse')   # This field type is a guess.
@@ -281,7 +281,7 @@ class PeerReviewAssignmentSubmissions(models.Model):
 
 
 class PeerReviewAssignmentTextOptions(models.Model):
-    questionid = models.IntegerField(db_column='questionID', primary_key=True, blank=True, null=True)  
+    questionid = models.IntegerField(db_column='questionID', primary_key=True, blank=True, null=False)  
     minlength = models.IntegerField(db_column='minLength')  
 
     class Meta:

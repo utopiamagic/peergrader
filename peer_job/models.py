@@ -11,14 +11,14 @@ from django.db import models
 
 
 class Appealtype(models.Model):
-    value = models.TextField(primary_key=True, blank=True, null=True)
+    value = models.TextField(primary_key=True, blank=True, null=False)
 
     class Meta:
         db_table = 'appealType'
 
 
 class AppealAssignment(models.Model):
-    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=True)  
+    submissionid = models.IntegerField(db_column='submissionID', primary_key=True, blank=True, null=False)  
     markerid = models.IntegerField(db_column='markerID')  
 
     class Meta:
@@ -35,21 +35,21 @@ class AssignmentPasswordEntered(models.Model):
 
 
 class Assignments(models.Model):
-    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=True)  
+    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=False)  
     name = models.CharField(max_length=128)
     courseid = models.IntegerField(db_column='courseID')  
     displaypriority = models.IntegerField(db_column='displayPriority')  
     assignmenttype = models.CharField(db_column='assignmentType', max_length=64)  
-    passwordmessage = models.TextField(db_column='passwordMessage', blank=True, null=True)  
-    password = models.CharField(max_length=255, blank=True, null=True)
-    visibletostudents = models.TextField(db_column='visibleToStudents')   This field type is a guess.
+    passwordmessage = models.TextField(db_column='passwordMessage', blank=True, null=False)  
+    password = models.CharField(max_length=255, blank=True, null=False)
+    visibletostudents = models.TextField(db_column='visibleToStudents')   # This field type is a guess.
 
     class Meta:
         db_table = 'assignments'
 
 
 class Calibrationstate(models.Model):
-    value = models.TextField(primary_key=True, blank=True, null=True)
+    value = models.TextField(primary_key=True, blank=True, null=False)
 
     class Meta:
         db_table = 'calibrationState'
@@ -58,7 +58,7 @@ class Calibrationstate(models.Model):
 
 
 class GroupPickerAssignment(models.Model):
-    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=True)  
+    assignmentid = models.IntegerField(db_column='assignmentID', primary_key=True, blank=True, null=False)  
     startdate = models.DateTimeField(db_column='startDate')  
     stopdate = models.DateTimeField(db_column='stopDate')  
 
@@ -77,7 +77,7 @@ class GroupPickerAssignmentGroups(models.Model):
 
 
 class GroupPickerAssignmentSelections(models.Model):
-    selectionid = models.IntegerField(db_column='selectionID', primary_key=True, blank=True, null=True)  
+    selectionid = models.IntegerField(db_column='selectionID', primary_key=True, blank=True, null=False)  
     assignmentid = models.IntegerField(db_column='assignmentID')  
     userid = models.IntegerField(db_column='userID')  
     groupindex = models.IntegerField(db_column='groupIndex')  
@@ -88,7 +88,7 @@ class GroupPickerAssignmentSelections(models.Model):
 
 
 class JobNotifications(models.Model):
-    notificationid = models.IntegerField(db_column='notificationID', primary_key=True, blank=True, null=True)  
+    notificationid = models.IntegerField(db_column='notificationID', primary_key=True, blank=True, null=False)  
     courseid = models.IntegerField(db_column='courseID')  
     assignmentid = models.IntegerField(db_column='assignmentID')  
     job = models.TextField()
@@ -103,7 +103,7 @@ class JobNotifications(models.Model):
 
 
 class Status(models.Model):
-    value = models.TextField(primary_key=True, blank=True, null=True)
+    value = models.TextField(primary_key=True, blank=True, null=False)
 
     class Meta:
         managed = False

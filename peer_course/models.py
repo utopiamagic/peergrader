@@ -5,21 +5,21 @@ from django.db import models
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 
-class Course(models.Model):
-    courseid = models.IntegerField(db_column='courseID', primary_key=True, blank=True, null=True)  
+class CourseList(models.Model):
+    courseid = models.IntegerField(db_column='courseID', primary_key=True, blank=True, null=False)  
     name = models.CharField(unique=True, max_length=64)
     displayname = models.CharField(db_column='displayName', max_length=128)  
     authtype = models.CharField(db_column='authType', max_length=128)  
     registrationtype = models.CharField(db_column='registrationType', max_length=128)  
-    browsable = models.TextField()  # # This field type is a guess.
-    archived = models.TextField()  # # This field type is a guess.
+    browsable = models.TextField()  # This field type is a guess.
+    archived = models.TextField()  # This field type is a guess.
 
     class Meta:
         db_table = 'course'
 
 
 class CourseConfiguration(models.Model):
-    courseid = models.IntegerField(db_column='courseID', primary_key=True, blank=True, null=True)  
+    courseid = models.IntegerField(db_column='courseID', primary_key=True, blank=True, null=False)  
     windowsize = models.IntegerField(db_column='windowSize')  
     numreviews = models.IntegerField(db_column='numReviews')  
     scorenoise = models.TextField(db_column='scoreNoise')   # This field type is a guess.
