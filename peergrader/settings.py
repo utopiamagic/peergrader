@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'peer_work',
     'peer_course',
     'peer_home',
-    'peer_review'
+    'peer_review',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-ca'
 
 TIME_ZONE = 'UTC'
 
@@ -133,4 +133,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + STATIC_URL
 STATIC_DICT = {
     'peer_home': BASE_DIR + '/peer_home/static',
+    #'peer_auth': BASE_DIR + '/peer_auth/static',
 }

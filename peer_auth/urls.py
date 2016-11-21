@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-from . import views
+from .views import AuthViews
 
 urlpatterns = [
-	# url(r'^login/$', views.HomeViews.homepage),
-	# url(r'^signup/$', views.HomeViews.homepage),
+	url(r'^login/$', AuthViews.main),
+	url(r'^signup/$', AuthViews.main),
 ]
