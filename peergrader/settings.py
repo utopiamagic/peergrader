@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'peer_auth',
-    'peer_job',
+    'peer_work',
     'peer_course',
     'peer_home',
     'peer_review'

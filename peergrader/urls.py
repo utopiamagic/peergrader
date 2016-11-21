@@ -23,5 +23,6 @@ from django.views.static import serve
 urlpatterns = [
 	url(r'^static/(?P<path>.*)$', serve, settings.STATIC_DICT),
 	url(r'^', include('peer_home.urls')),
+	url(r'^account/', include('peer_auth.urls')),
 	#url(r'^admin/', include(admin.site.urls)),
 ]
