@@ -36,14 +36,14 @@ Sign up Fields
 
 Permissions
 ===========
-* superuser
-## change passwords {instructor, teaching-assistant, student}
-## change roles {instructor, teaching-assistant, student}
-* instructor
-## change passwords {teaching-assistant, student}
-## change roles {teaching-assistant, student}
-* teaching-assistant | student
-## update {password, name, Student ID}
+## superuser
+* change passwords {instructor, teaching-assistant, student}
+* change roles {instructor, teaching-assistant, student}
+## instructor
+* change passwords {teaching-assistant, student}
+* change roles {teaching-assistant, student}
+## teaching-assistant | student
+* update {password, name, Student ID}
 
 Log
 =======
