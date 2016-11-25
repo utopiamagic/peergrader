@@ -7,5 +7,6 @@ class HomeViews :
 		'Render the homepage'
 		render_dict = {
 			'courses': CourseBase.all(),
+			'logged_in': request.user.is_authenticated(),
 		}
 		return render(request, 'index.html', render_dict)

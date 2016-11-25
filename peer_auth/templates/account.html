@@ -93,14 +93,26 @@
     <h2 class="ui teal image header">
       
     </h2>
-    <form class="ui large form">
+    {% if is_login %}
+    <form class="ui large form" method="POST" action="/account/login/">
+    {% else %}
+    <form class="ui large form" method="POST" action="/account/signup/">
+    {% endif %}
+      {% csrf_token %}
       <div class="ui stacked segment">
+        {% if is_success %}
+        <div class="ui green message">
+          Welcome to UBC PeerGrader!
+        </div>
+        {% elif is_login %}
         <div class="ui blue message">
-          Do not use your UBC Campus Wide Login account.</div>
+          Do not use your UBC Campus Wide Login account.
+        </div>
+        {% endif %}
         <div class="field">
           <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail address">
+            <i class="credit card alternative icon"></i>
+            <input type="text" name="username" placeholder="UBC Student ID">
           </div>
         </div>
         <div class="field">
@@ -109,16 +121,49 @@
             <input type="password" name="password" placeholder="Password">
           </div>
         </div>
+        {% if is_login %}
         <div class="ui fluid large blue submit button">Login</div>
+        {% else %}
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="repeat icon"></i>
+            <input type="password" name="n-password" placeholder="Re-enter Your Password">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="mail icon"></i>
+            <input type="text" name="email" placeholder="UBC E-mail address">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="first_name" placeholder="First name">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="users icon"></i>
+            <input type="text" name="last_name" placeholder="Last name">
+          </div>
+        </div>
+        <div class="ui fluid large blue submit button">Sign Up</div>
+        {% endif %}
       </div>
 
       <div class="ui error message"></div>
 
     </form>
-
+    {% if is_login %}
     <div class="ui message">
-      New to PeerGrader? <a href="#">Sign Up</a>
+      New to PeerGrader? <a href="/account/signup/">Sign Up</a>
     </div>
+    {% else %}
+    <div class="ui message">
+      Already have an account? <a href="/account/login/">Log in</a>
+    </div>
+    {% endif %}
   </div>
 </div>
 
