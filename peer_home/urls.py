@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.HomeViews.homepage),
+	url(r'^auth/panel/$', views.HomeViews.auth_panel),
 	# url(r'^articles/2003/$', views.special_case_2003),
 	# url(r'^articles/([0-9]{4})/$', views.year_archive),
 	# url(r'^articles/([0-9]{4})/([0-9]{2})/$', views.month_archive),

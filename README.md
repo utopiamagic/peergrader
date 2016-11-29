@@ -39,6 +39,7 @@ Permissions
 ## superuser
 * change passwords {instructor, teaching-assistant, student}
 * change roles {instructor, teaching-assistant, student}
+* change courses {instructor, name, teaching-assistant, student}
 ## instructor
 * change passwords {teaching-assistant, student}
 * change roles {teaching-assistant, student}
@@ -48,3 +49,5 @@ Permissions
 Log
 =======
 * Nov, 24: 4 hrs
+* Nov, 26: 1 hr
+* Nov, 28: 4 hrs

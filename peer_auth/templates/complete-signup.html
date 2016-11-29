@@ -1,0 +1,44 @@
+    <form class="ui large form" method="POST" action="/account/signup/?special=true">
+      {% csrf_token %}
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="credit card alternative icon"></i>
+            <input type="text" name="username" placeholder="UBC Student ID">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="mail icon"></i>
+            <input type="text" name="email" placeholder="UBC E-mail address">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="first_name" placeholder="First name">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="users icon"></i>
+            <input type="text" name="last_name" placeholder="Last name">
+          </div>
+        </div>
+        <div class="field">
+          <select name="role" class="ui fluid dropdown">
+            <option value="admin">Super User</option>
+            <option value="staff">Instructor</option>
+            <option value="assistant">Teaching Assistant</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <div class="ui fluid large blue submit button">Sign Up</div>
+      <div class="ui error message"></div>
+    </form>

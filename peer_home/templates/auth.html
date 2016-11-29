@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <!-- Standard Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>Responsive Elements - Semantic</title>
+  <link rel="stylesheet" type="text/css" href="/static/dist/semantic.css">
+
+  <script src="http://pjax.herokuapp.com/jquery.js"></script>
+  <script src="/static/js/jquery.pjax.js"></script>
+  <script src="/static/dist/semantic.js"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      // pjax
+        $(document).pjax('a', '#pjax-container');
+    })
+  </script>
+
+</head>
+<body>
+
+<div class="ui stackable container menu" style="margin-top:1em;">
+  <a class="item" href="/">Home</a>
+  <a class="item" href="#">Courses</a>
+  <a class="item">Alerts</a>
+  <div class="ui category search item">
+    <div class="ui transparent icon input">
+      <input class="prompt" placeholder="Search users..." type="text">
+      <i class="search link icon"></i>
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+
+<div class="ui container">
+<div class="ui grid">
+  <div class="four wide column">
+    <div class="ui vertical fluid tabular menu">
+      <a class="item" href="/account/fetch/?type='admin'">
+        Super User
+      </a>
+      <a class="item" href="/account/fetch/?type='staff'">
+        Instructor
+      </a>
+      <a class="item active" href="/account/fetch/?type='assistant'">
+        Teaching Assistant
+      </a>
+      <a class="item" href="/account/fetch/?type='student'">
+        Student
+      </a>
+      <a class="item" href="/account/form/?type='new'">
+        Add New User
+      </a>
+      <a class="item" href="/account/form/?type='rename'">
+        Edit User ID
+      </a>
+    </div>
+  </div>
+  <div class="twelve wide column" id="pjax-container">
+  </div>
+</div>
+</div>
+
+<div class="ui two column stackable grid container">
+
+  <div class="column">
+    <div class="ui segment">
+      <p>Currently logged in as: {{ user.username }}</p>
+      <i>platform.system() + " " + platform.release()</i>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui segment">No alerts.</div>
+  </div>
+</div>
+
+
+<div class="ui modal small">
+  <i class="close icon"></i>
+  <div class="header">
+    Edit Profile
+  </div>
+  <div class="image content">
+    <div class="description">
+      <div class="ui header">We've fetched {{ user.lastname }} {{ user.firstname }}'s profile for you.</div>
+      <p>Is it okay to save your changes?</p>
+      <form class="ui small form" method="POST" action="/account/modify/">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="credit card alternative icon"></i>
+            <input type="text" name="username" placeholder="UBC Student ID">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Cancel
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's okay
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+
+<!-- Content JS HERE !-->
+<style>
+  .last.container {
+    margin-bottom: 300px !important;
+  }
+  h1.ui.center.header {
+    margin-top: 3em;
+  }
+  h2.ui.center.header {
+    margin: 4em 0em 2em;
+  }
+  h3.ui.center.header {
+    margin-top: 2em;
+    padding: 2em 0em;
+  }
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+  var
+    $headers     = $('body > h3'),
+    $header      = $headers.first(),
+    ignoreScroll = false,
+    timer
+  ;
+
+  // Preserve example in viewport when resizing browser
+  $(window)
+    .on('resize', function() {
+      // ignore callbacks from scroll change
+      clearTimeout(timer);
+      $headers.visibility('disable callbacks');
+
+      // preserve position
+      $(document).scrollTop( $header.offset().top );
+
+      // allow callbacks in 500ms
+      timer = setTimeout(function() {
+        $headers.visibility('enable callbacks');
+      }, 500);
+    })
+  ;
+  $headers
+    .visibility({
+      // fire once each time passed
+      once: false,
+
+      // don't refresh position on resize
+      checkOnRefresh: true,
+
+      // lock to this element on resize
+      onTopPassed: function() {
+        $header = $(this);
+      },
+      onTopPassedReverse: function() {
+        $header = $(this);
+      }
+    })
+  ;
+});
+$('#button-edit').click(function() {$('.ui.modal').modal('show');});
+</script>
+
+
+
+</body></html>

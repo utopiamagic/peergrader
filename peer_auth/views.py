@@ -15,7 +15,7 @@ class AuthBase :
 		'Returns whether if the user is logged in'
 		return request.user.is_authenticated()
 
-	def find(request) :
+	def current_user(request) :
 		'Returns current user'
 		if request.user.is_authenticated() :
 			return request.user
@@ -36,6 +36,31 @@ class AuthBase :
 		else:
 			return False
 
+
+	def find_all() :
+		'Reset the password if the credential is valid'
+		user = authenticate(username=uid, password=oldpwd)
+		if user is not None:
+			u = User.objects.get(username=uid)
+			u.set_password(newpwd)
+			u.save()
+			return True
+		else:
+			return False
+
+	def update(request):
+		'Update the given user with data'
+		if request.method == "POST":
+			u = UserForm(data=request.POST, instance=request.POST.get('username'))
+			if form.is_valid():
+				user = form.save(commit=False)
+				user.save()
+	
+	def rename(old_name, new_name) :
+		'Update the user\' old UBC ID with the new ID'
+		print('Warning: this function does not update the user\'s id in tables other than User')
+		u = User.objects.filter(username=old_name).update(username=new_name)
+		
 class AuthViews :
 	@never_cache
 	def user_signup(request):
@@ -45,7 +70,7 @@ class AuthViews :
 		}
 		if request.method == 'POST':
 			print("Received a post!")
-			u = UserForm(request.POST)
+			u = UserForm(data=request.POST)
 			if u.is_valid():
 				# Save a new user object from the form's data.
 				new_user = u.save()
@@ -78,3 +103,11 @@ class AuthViews :
 		'Logout the currect session'
 		logout(request)
 		return HttpResponseRedirect('/')
+		
+	def user_fetch(request) :
+		render_dict = dict()
+		return render(request, 'user-table.html', render_dict)
+		
+	def signup_form(request) :
+		render_dict = dict()
+		return render(request, 'complete-signup.html', render_dict)
