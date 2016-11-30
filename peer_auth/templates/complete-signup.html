@@ -1,4 +1,4 @@
-    <form class="ui large form" method="POST" action="/account/signup/?special=true">
+    <form class="ui large form" method="POST" action="/account/form/?special=true">
       {% csrf_token %}
       <div class="ui stacked segment">
         <div class="field">
@@ -32,13 +32,13 @@
           </div>
         </div>
         <div class="field">
-          <select name="role" class="ui fluid dropdown">
-            <option value="admin">Super User</option>
-            <option value="staff">Instructor</option>
+          <select name="groups" class="ui fluid dropdown">
+            <option value="superuser">Super User</option>
+            <option value="instructor">Instructor</option>
             <option value="assistant">Teaching Assistant</option>
             <option value="student">Student</option>
           </select>
         </div>
-        <div class="ui fluid large blue submit button">Sign Up</div>
+        <button class="ui fluid large blue submit button" type="submit">Sign Up</button>
       <div class="ui error message"></div>
     </form>

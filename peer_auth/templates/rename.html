@@ -1,0 +1,26 @@
+    <form class="ui large form" method="POST" action="/account/rename/?special=true">
+      {% csrf_token %}
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="credit card alternative icon"></i>
+            <input type="text" name="old_name" placeholder="Old Student ID">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="credit card alternative icon"></i>
+            <input type="text" name="new_name" placeholder="New Student ID">
+          </div>
+        </div>
+        <div class="field">
+          <select name="groups" class="ui fluid dropdown">
+            <option value="superuser">Super User</option>
+            <option value="instructor">Instructor</option>
+            <option value="assistant">Teaching Assistant</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <button class="ui fluid large blue submit button" type="submit">Submit</button>
+      <div class="ui error message"></div>
+    </form>

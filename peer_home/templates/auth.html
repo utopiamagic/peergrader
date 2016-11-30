@@ -7,18 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properties -->
-  <title>Responsive Elements - Semantic</title>
+  <title>Admin</title>
   <link rel="stylesheet" type="text/css" href="/static/dist/semantic.css">
 
   <script src="http://pjax.herokuapp.com/jquery.js"></script>
   <script src="/static/js/jquery.pjax.js"></script>
+  <script src="/static/js/menu.js"></script>
   <script src="/static/dist/semantic.js"></script>
 
   <script type="text/javascript">
     $(function(){
       // pjax
         $(document).pjax('a', '#pjax-container');
-    })
+    });
+    
   </script>
 
 </head>
@@ -27,6 +29,7 @@
 <div class="ui stackable container menu" style="margin-top:1em;">
   <a class="item" href="/">Home</a>
   <a class="item" href="#">Courses</a>
+  <a class="item" href="/auth/panel/">SuperUser</a>
   <a class="item">Alerts</a>
   <div class="ui category search item">
     <div class="ui transparent icon input">
@@ -41,22 +44,22 @@
 <div class="ui grid">
   <div class="four wide column">
     <div class="ui vertical fluid tabular menu">
-      <a class="item" href="/account/fetch/?type='admin'">
+      <a class="item" href="/account/fetch/?type=superuser">
         Super User
       </a>
-      <a class="item" href="/account/fetch/?type='staff'">
+      <a class="item" href="/account/fetch/?type=instructor">
         Instructor
       </a>
-      <a class="item active" href="/account/fetch/?type='assistant'">
+      <a class="item active" href="/account/fetch/?type=assistant">
         Teaching Assistant
       </a>
-      <a class="item" href="/account/fetch/?type='student'">
+      <a class="item" href="/account/fetch/?type=student">
         Student
       </a>
-      <a class="item" href="/account/form/?type='new'">
+      <a class="item" href="/account/form/?type=create">
         Add New User
       </a>
-      <a class="item" href="/account/form/?type='rename'">
+      <a class="item" href="/account/form/?type=rename">
         Edit User ID
       </a>
     </div>
@@ -71,7 +74,7 @@
   <div class="column">
     <div class="ui segment">
       <p>Currently logged in as: {{ user.username }}</p>
-      <i>platform.system() + " " + platform.release()</i>
+      <i>{{ platform }}</i>
     </div>
   </div>
 

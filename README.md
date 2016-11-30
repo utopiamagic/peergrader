@@ -19,6 +19,10 @@ peer_review:
 peer_course:
 ------------
 + Create/Edit courses
+
+Next Step
+=========
+* Finish user_update()
 		
 Roles
 ======
@@ -49,5 +53,6 @@ Permissions
 Log
 =======
 * Nov, 24: 4 hrs
-* Nov, 26: 1 hr
+* Nov, 26: 2 hrs
 * Nov, 28: 4 hrs
+* Nov, 29: 3 hrs

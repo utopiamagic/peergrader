@@ -8,20 +8,26 @@
       </tr>
     </thead>
     <tbody>
+    {% for user in users %}
       <tr>
-        <td>user.firstname user.lastname</td>
-        <td>user.username</td>
-        <td>user.email</td>
+        <td>{{ user.first_name }} {{ user.last_name }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
         <td>
   <div class="item">
     <div class="ui tiny buttons">
       <button id="button-edit" class="ui inverted yellow button">Edit</button>
       <!--<button class="ui inverted orange button">Deregister</button>-->
-      <button class="ui inverted red button">Remove</button>
+      {% if user.is_active %}
+      <a class="ui inverted red button" href="/account/inactivate/?username={{ user.username }}">Remove</a>
+      {% else %}
+      <a class="ui inverted orange button" href="/account/activate/?username={{ user.username }}">Active</a>
+      {% endif %}
     </div>
   </div>
         </td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
   <div class="ui pagination menu">

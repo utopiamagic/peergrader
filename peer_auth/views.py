@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 
 # Create your views here.
 
@@ -22,9 +22,6 @@ class AuthBase :
 		else :
 			return None
 
-	def find_by_name(name) :
-		pass
-	
 	def reset_password(uid, oldpwd, newpwd) :
 		'Reset the password if the credential is valid'
 		user = authenticate(username=uid, password=oldpwd)
@@ -60,7 +57,35 @@ class AuthBase :
 		'Update the user\' old UBC ID with the new ID'
 		print('Warning: this function does not update the user\'s id in tables other than User')
 		u = User.objects.filter(username=old_name).update(username=new_name)
-		
+	
+	def inactivate(username) :
+		'Inactive the user and returns True if succeed'
+		u = User.objects.filter(username=username)
+		if len(u) == 0 :
+			return False
+		else :
+			u.update(is_active=False).save()
+			return True
+	
+	def set_group(gname, user) :
+		'Set the given users group'
+		if gname in ('student', 'assistant', 'instructor', 'superuser') :
+			stu_group, created = Group.objects.get_or_create(name=gname)
+			user.groups.add(stu_group)
+			user.save()
+		return user
+
+	def get_user_by_group(gname) :
+		try :
+			users = Group.objects.get(name=gname).user_set.all()
+			return users
+		except Group.DoesNotExist:
+			print("Group.DoesNotExist", gname)
+			return None
+	
+	def find_by_name(name) :
+		pass
+	
 class AuthViews :
 	@never_cache
 	def user_signup(request):
@@ -69,13 +94,17 @@ class AuthViews :
 			'is_login': False,
 		}
 		if request.method == 'POST':
-			print("Received a post!")
 			u = UserForm(data=request.POST)
 			if u.is_valid():
 				# Save a new user object from the form's data.
 				new_user = u.save()
 				new_user.set_password(u.cleaned_data['password'])
 				new_user.save()
+				if request.POST.get("special") is not None :
+					AuthBase.set_group(request.POST.get('groups'), new_user)
+					print('get a new post!')
+					return HttpResponseRedirect('/auth/panel/')
+				AuthBase.set_group('student', new_user)
 				return HttpResponseRedirect('/account/login/?success=true;')
 		else :
 			return render(request, 'account.html', render_dict)
@@ -106,8 +135,35 @@ class AuthViews :
 		
 	def user_fetch(request) :
 		render_dict = dict()
+		t = request.GET.get('type')
+		users = AuthBase.get_user_by_group(t)
+		render_dict['users'] = users
 		return render(request, 'user-table.html', render_dict)
-		
+	
+	def user_inactivate(request) :
+		render_dict = dict()
+		if request.method == 'POST':
+			uname = request.POST.get('username')
+			if uname != None :
+				AuthBase.inactivate(uname)
+				return render(request, 'msg.html', render_dict)
+	
 	def signup_form(request) :
 		render_dict = dict()
-		return render(request, 'complete-signup.html', render_dict)
+		if request.method == 'POST':
+			u = UserForm(data=request.POST)
+			print(u.errors)
+			if u.is_valid():
+				# Save a new user object from the form's data.
+				new_user = u.save()
+				new_user.set_password(u.cleaned_data['password'])
+				new_user.save()
+				AuthBase.set_group(request.POST.get('groups'), new_user)
+				return HttpResponseRedirect('/auth/panel/')
+			return HttpResponseRedirect('/auth/panel/')
+		else :
+			t = request.GET.get('type')
+			if t == 'create' :
+				return render(request, 'complete-signup.html', render_dict)
+			else :
+				return render(request, 'rename.html', render_dict)

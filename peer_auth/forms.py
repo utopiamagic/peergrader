@@ -11,7 +11,7 @@ class UserForm(ModelForm):
 
 	def clean_email(self):
 		data = self.cleaned_data['email']
-		if re.match("^([a-zA-Z0-9_\-\.]+)@(ugrad\.cs|alumni|cs){,1}\.ubc\.ca$", data) is None:
+		if re.match("^([a-zA-Z0-9_\-\.]+)@((ugrad\.cs|alumni|cs){,1}\.)*ubc\.ca$", data) is None:
 			raise forms.ValidationError("UBC Email Address Required")
 		return data
 		

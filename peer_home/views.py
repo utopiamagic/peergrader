@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from peer_course.views import CourseBase
 from peer_auth.views import AuthBase
+import platform
 
 # Functions other than view functions should be placed elsewhere
 
@@ -18,4 +19,7 @@ class HomeViews :
 		return render(request, 'index.html', render_dict)
 		
 	def auth_panel(request) :
-		return render(request, 'auth.html')
+		render_dict = {
+			'platform': platform.system() + ' ' + platform.release(),
+		}
+		return render(request, 'auth.html', render_dict)
