@@ -13,4 +13,44 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='CourseConfiguration',
+            fields=[
+                ('courseid', models.IntegerField(blank=True, db_column='courseID', primary_key=True, serialize=False)),
+                ('windowsize', models.IntegerField(db_column='windowSize')),
+                ('numreviews', models.IntegerField(db_column='numReviews')),
+                ('scorenoise', models.TextField(db_column='scoreNoise')),
+                ('maxattempts', models.IntegerField(db_column='maxAttempts')),
+                ('numcovertcalibrations', models.IntegerField(db_column='numCovertCalibrations')),
+                ('exhaustedcondition', models.TextField(db_column='exhaustedCondition')),
+                ('minreviews', models.IntegerField(db_column='minReviews')),
+                ('spotcheckprob', models.TextField(db_column='spotCheckProb')),
+                ('highmarkthreshold', models.TextField(db_column='highMarkThreshold')),
+                ('highmarkbias', models.TextField(db_column='highMarkBias')),
+                ('calibrationthreshold', models.TextField(db_column='calibrationThreshold')),
+                ('calibrationbias', models.TextField(db_column='calibrationBias')),
+                ('scorewindowsize', models.IntegerField(db_column='scoreWindowSize')),
+                ('scorethreshold', models.TextField(db_column='scoreThreshold')),
+                ('disqualifywindowsize', models.IntegerField(db_column='disqualifyWindowSize')),
+                ('disqualifythreshold', models.TextField(db_column='disqualifyThreshold')),
+            ],
+            options={
+                'db_table': 'course_configuration',
+            },
+        ),
+        migrations.CreateModel(
+            name='CourseList',
+            fields=[
+                ('courseid', models.IntegerField(db_column='courseID', primary_key=True)), #, serialize=False
+                ('name', models.CharField(max_length=64, unique=True)),
+                ('displayname', models.CharField(db_column='displayName', max_length=128)),
+                ('authtype', models.CharField(db_column='authType', max_length=128)),
+                ('registrationtype', models.CharField(db_column='registrationType', max_length=128)),
+                ('browsable', models.BooleanField()),
+                ('archived', models.BooleanField()),
+            ],
+            options={
+                'db_table': 'course',
+            },
+        ),
     ]

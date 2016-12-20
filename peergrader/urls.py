@@ -22,7 +22,7 @@ from django.views.static import serve
 
 urlpatterns = [
 	url(r'^static/(?P<path>.*)$', serve, settings.STATIC_DICT),
-	url(r'^', include('peer_home.urls')),
+	url(r'^', include('peer_panel.urls')),
 	url(r'^account/', include('peer_auth.urls')),
 	url(r'^course/', include('peer_course.urls')),
 	#url(r'^admin/', include(admin.site.urls)),

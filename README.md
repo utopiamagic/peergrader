@@ -4,11 +4,11 @@ peer_auth:
 -----------
 + Authentication system
 
-peer_central:
+peer_quest:
 --------------
-+ pass
++ tasks yet-to-be-solved in a course
 
-peer_home:
+peer_panel:
 -----------
 + Home page
 
@@ -19,11 +19,17 @@ peer_review:
 peer_course:
 ------------
 + Create/Edit courses
-
++ Models.py
+		* numreviews | Number of reviews | 3
+		* calibrationbias | 1
+		* users | different types 
+		* course code |
+		
 Next Step
 =========
 * Finish user_update()
-		
+* Restore mysql
+
 Roles
 ======
 * superuser
@@ -44,9 +50,12 @@ Permissions
 * change passwords {instructor, teaching-assistant, student}
 * change roles {instructor, teaching-assistant, student}
 * change courses {instructor, name, teaching-assistant, student}
+* add courses
 ## instructor
 * change passwords {teaching-assistant, student}
 * change roles {teaching-assistant, student}
+* add
+* add/edit courses
 ## teaching-assistant | student
 * update {password, name, Student ID}
 
@@ -56,3 +65,4 @@ Log
 * Nov, 26: 2 hrs
 * Nov, 28: 4 hrs
 * Nov, 29: 3 hrs
+* Dec, 19: 5 hrs

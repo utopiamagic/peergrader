@@ -13,4 +13,44 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='UserPasswords',
+            fields=[
+                ('username', models.CharField(blank=True, max_length=64, primary_key=True, serialize=False)),
+                ('passwordhash', models.CharField(db_column='passwordHash', max_length=128)),
+            ],
+            options={
+                'db_table': 'user_passwords',
+                'managed': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Users',
+            fields=[
+                ('userid', models.IntegerField(blank=True, db_column='userID', primary_key=True, serialize=False)),
+                ('usertype', models.TextField(db_column='userType')),
+                ('courseid', models.IntegerField(db_column='courseID')),
+                ('firstname', models.CharField(db_column='firstName', max_length=128)),
+                ('lastname', models.CharField(db_column='lastName', max_length=128)),
+                ('username', models.CharField(max_length=64)),
+                ('studentid', models.IntegerField(db_column='studentID')),
+                ('alias', models.CharField(blank=True, max_length=64)),
+                ('markingload', models.TextField(db_column='markingLoad')),
+                ('dropped', models.TextField()),
+            ],
+            options={
+                'db_table': 'users',
+                'managed': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Usertype',
+            fields=[
+                ('value', models.TextField(blank=True, primary_key=True, serialize=False)),
+            ],
+            options={
+                'db_table': 'userType',
+                'managed': False,
+            },
+        ),
     ]

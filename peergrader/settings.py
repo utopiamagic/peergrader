@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'peer_auth',
-    'peer_work',
+    'peer_task',
     'peer_course',
-    'peer_home',
+    'peer_panel',
     'peer_review',
 ]
 
@@ -132,6 +132,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + STATIC_URL
 STATIC_DICT = {
-    'peer_home': BASE_DIR + '/peer_home/static',
+    'peer_panel': BASE_DIR + '/peer_panel/static',
     #'peer_auth': BASE_DIR + '/peer_auth/static',
 }

@@ -11,6 +11,369 @@ class Migration(migrations.Migration):
 
     dependencies = [
     ]
-
+    
     operations = [
+        migrations.CreateModel(
+            name='PeerReviewAssignmentSubmissionMarks',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('score', models.TextField()),
+                ('comments', models.TextField(blank=True)),
+                ('automatic', models.TextField()),
+                ('submissionmarktimestamp', models.DateTimeField(db_column='submissionMarkTimestamp')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_submission_marks',
+                'managed': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentSubmissions',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('assignmentid', models.IntegerField(db_column='assignmentID')),
+                ('authorid', models.IntegerField(db_column='authorID')),
+                ('nopublicuse', models.TextField(db_column='noPublicUse')),
+                ('submissiontimestamp', models.DateTimeField(db_column='submissionTimestamp')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_submissions',
+                'managed': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentTextOptions',
+            fields=[
+                ('questionid', models.IntegerField(blank=True, db_column='questionID', primary_key=True, serialize=False)),
+                ('minlength', models.IntegerField(db_column='minLength')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_text_options',
+                'managed': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignment',
+            fields=[
+                ('assignmentid', models.IntegerField(blank=True, db_column='assignmentID', primary_key=True, serialize=False)),
+                ('submissionquestion', models.TextField(db_column='submissionQuestion')),
+                ('submissiontype', models.CharField(db_column='submissionType', max_length=64)),
+                ('submissionstartdate', models.DateTimeField(db_column='submissionStartDate')),
+                ('submissionstopdate', models.DateTimeField(db_column='submissionStopDate')),
+                ('reviewstartdate', models.DateTimeField(db_column='reviewStartDate')),
+                ('reviewstopdate', models.DateTimeField(db_column='reviewStopDate')),
+                ('markpostdate', models.DateTimeField(db_column='markPostDate')),
+                ('maxsubmissionscore', models.TextField(db_column='maxSubmissionScore')),
+                ('maxreviewscore', models.TextField(db_column='maxReviewScore')),
+                ('defaultnumberofreviews', models.IntegerField(db_column='defaultNumberOfReviews')),
+                ('allowrequestofreviews', models.TextField(db_column='allowRequestOfReviews')),
+                ('showmarksforreviewsreceived', models.TextField(db_column='showMarksForReviewsReceived')),
+                ('showotherreviewsbystudents', models.TextField(db_column='showOtherReviewsByStudents')),
+                ('showotherreviewsbyinstructors', models.TextField(db_column='showOtherReviewsByInstructors')),
+                ('showmarksforotherreviews', models.TextField(db_column='showMarksForOtherReviews')),
+                ('showmarksforreviewedsubmissions', models.TextField(db_column='showMarksForReviewedSubmissions')),
+                ('appealstopdate', models.DateTimeField(db_column='appealStopDate')),
+                ('showpoolstatus', models.TextField(db_column='showPoolStatus')),
+                ('calibrationmincount', models.IntegerField(db_column='calibrationMinCount')),
+                ('calibrationmaxscore', models.IntegerField(db_column='calibrationMaxScore')),
+                ('calibrationthresholdmse', models.TextField(db_column='calibrationThresholdMSE')),
+                ('calibrationthresholdscore', models.TextField(db_column='calibrationThresholdScore')),
+                ('autoassignessaytopic', models.TextField(db_column='autoAssignEssayTopic')),
+                ('extracalibrations', models.IntegerField(blank=True, db_column='extraCalibrations')),
+                ('essaywordlimit', models.IntegerField(db_column='essayWordLimit')),
+                ('calibrationstartdate', models.DateTimeField(db_column='calibrationStartDate')),
+                ('calibrationstopdate', models.DateTimeField(db_column='calibrationStopDate')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentAppealMessages',
+            fields=[
+                ('appealmessageid', models.IntegerField(blank=True, db_column='appealMessageID', primary_key=True, serialize=False)),
+                ('appealtype', models.TextField(db_column='appealType')),
+                ('matchid', models.IntegerField(db_column='matchID')),
+                ('authorid', models.IntegerField(db_column='authorID')),
+                ('viewedbystudent', models.TextField(db_column='viewedByStudent')),
+                ('text', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_appeal_messages',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentArticleResponses',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('articleindex', models.IntegerField(db_column='articleIndex')),
+                ('outline', models.TextField()),
+                ('response', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_article_responses',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentArticleResponseSettings',
+            fields=[
+                ('assignmentid', models.IntegerField(db_column='assignmentID', primary_key=True, serialize=False)),
+                ('articleindex', models.IntegerField(db_column='articleIndex', primary_key=True)),
+                ('name', models.CharField(max_length=255)),
+                ('link', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_article_response_settings',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentCalibrationMatches',
+            fields=[
+                ('matchid', models.IntegerField(blank=True, db_column='matchID', primary_key=True, serialize=False)),
+                ('assignmentid', models.IntegerField(db_column='assignmentID')),
+                ('required', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_calibration_matches',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentCalibrationPools',
+            fields=[
+                ('assignmentid', models.IntegerField(db_column='assignmentID', primary_key=True)),
+                ('poolassignmentid', models.IntegerField(db_column='poolAssignmentID', primary_key=True, serialize=False)),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_calibration_pools',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentCode',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('code', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_code',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentCodeSettings',
+            fields=[
+                ('assignmentid', models.IntegerField(blank=True, db_column='assignmentID', primary_key=True, serialize=False)),
+                ('codelanguage', models.CharField(db_column='codeLanguage', max_length=255)),
+                ('codeextension', models.CharField(db_column='codeExtension', max_length=10)),
+                ('uploadonly', models.TextField(db_column='uploadOnly')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_code_settings',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentDemotionLog',
+            fields=[
+                ('userid', models.IntegerField(blank=True, db_column='userID', primary_key=True, serialize=False)),
+                ('demotiondate', models.DateTimeField(db_column='demotionDate')),
+                ('demotionthreshold', models.TextField(db_column='demotionThreshold')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_demotion_log',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentDenied',
+            fields=[
+                ('userid', models.IntegerField(db_column='userID', primary_key=True, serialize=False)),
+                ('assignmentid', models.IntegerField(db_column='assignmentID', primary_key=True)),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_denied',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentEssays',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('text', models.TextField()),
+                ('topicindex', models.IntegerField(blank=True, db_column='topicIndex')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_essays',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentEssaySettings',
+            fields=[
+                ('assignmentid', models.IntegerField(db_column='assignmentID', primary_key=True)),
+                ('topicindex', models.IntegerField(db_column='topicIndex', primary_key=True, serialize=False)),
+                ('topic', models.CharField(max_length=255)),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_essay_settings',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentImages',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('imgwidth', models.IntegerField(db_column='imgWidth')),
+                ('imgheight', models.IntegerField(db_column='imgHeight')),
+                ('imgdata', models.TextField(db_column='imgData')),
+                ('text', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_images',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentIndependent',
+            fields=[
+                ('userid', models.IntegerField(db_column='userID', primary_key=True, serialize=False)),
+                ('assignmentid', models.IntegerField(db_column='assignmentID', primary_key=True)),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_independent',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentInstructorReviewTouchTimes',
+            fields=[
+                ('submissionid', models.IntegerField(db_column='submissionID', primary_key=True)),
+                ('instructorid', models.IntegerField(db_column='instructorID', primary_key=True, serialize=False)),
+                ('timestamp', models.DateTimeField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_instructor_review_touch_times',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentMatches',
+            fields=[
+                ('matchid', models.IntegerField(blank=True, db_column='matchID', primary_key=True, serialize=False)),
+                ('submissionid', models.IntegerField(db_column='submissionID')),
+                ('reviewerid', models.IntegerField(db_column='reviewerID')),
+                ('instructorforced', models.TextField(db_column='instructorForced')),
+                ('calibrationstate', models.TextField(db_column='calibrationState')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_matches',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentQuestions',
+            fields=[
+                ('questionid', models.IntegerField(blank=True, db_column='questionID', primary_key=True, serialize=False)),
+                ('assignmentid', models.IntegerField(db_column='assignmentID')),
+                ('questionname', models.CharField(db_column='questionName', max_length=128)),
+                ('questiontext', models.TextField(db_column='questionText')),
+                ('questiontype', models.CharField(db_column='questionType', max_length=64)),
+                ('hidden', models.TextField()),
+                ('displaypriority', models.IntegerField(db_column='displayPriority')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_questions',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentRadioOptions',
+            fields=[
+                ('questionid', models.IntegerField(db_column='questionID', primary_key=True, serialize=False)),
+                ('index', models.IntegerField(primary_key=True)),
+                ('label', models.CharField(max_length=1024)),
+                ('score', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_radio_options',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentReviewAnswers',
+            fields=[
+                ('matchid', models.IntegerField(db_column='matchID', primary_key=True)),
+                ('questionid', models.IntegerField(db_column='questionID', primary_key=True, serialize=False)),
+                ('answerint', models.IntegerField(blank=True, db_column='answerInt')),
+                ('answertext', models.TextField(blank=True, db_column='answerText')),
+                ('reviewtimestamp', models.DateTimeField(db_column='reviewTimestamp')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_review_answers',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentReviewAnswersDrafts',
+            fields=[
+                ('matchid', models.IntegerField(db_column='matchID', primary_key=True)),
+                ('questionid', models.IntegerField(db_column='questionID', primary_key=True, serialize=False)),
+                ('answerint', models.IntegerField(blank=True, db_column='answerInt')),
+                ('answertext', models.TextField(blank=True, db_column='answerText')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_review_answers_drafts',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentReviewMarks',
+            fields=[
+                ('matchid', models.IntegerField(blank=True, db_column='matchID', primary_key=True, serialize=False)),
+                ('score', models.TextField()),
+                ('comments', models.TextField(blank=True)),
+                ('automatic', models.TextField()),
+                ('reviewpoints', models.TextField(db_column='reviewPoints')),
+                ('reviewmarktimestamp', models.DateTimeField(db_column='reviewMarkTimestamp')),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_review_marks',
+            },
+        ),
+        migrations.CreateModel(
+            name='PeerReviewAssignmentSpotChecks',
+            fields=[
+                ('submissionid', models.IntegerField(blank=True, db_column='submissionID', primary_key=True, serialize=False)),
+                ('checkerid', models.IntegerField(db_column='checkerID')),
+                ('status', models.TextField()),
+            ],
+            options={
+                'db_table': 'peer_review_assignment_spot_checks',
+            },
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentreviewanswersdrafts',
+            unique_together=set([('matchid', 'questionid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentreviewanswers',
+            unique_together=set([('matchid', 'questionid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentradiooptions',
+            unique_together=set([('questionid', 'index')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentmatches',
+            unique_together=set([('submissionid', 'reviewerid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentinstructorreviewtouchtimes',
+            unique_together=set([('submissionid', 'instructorid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentindependent',
+            unique_together=set([('userid', 'assignmentid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentessaysettings',
+            unique_together=set([('assignmentid', 'topicindex')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentdenied',
+            unique_together=set([('userid', 'assignmentid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentcalibrationpools',
+            unique_together=set([('assignmentid', 'poolassignmentid')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='peerreviewassignmentarticleresponsesettings',
+            unique_together=set([('assignmentid', 'articleindex')]),
+        ),
     ]

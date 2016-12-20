@@ -136,9 +136,15 @@ class AuthViews :
 	def user_fetch(request) :
 		render_dict = dict()
 		t = request.GET.get('type')
-		users = AuthBase.get_user_by_group(t)
-		render_dict['users'] = users
-		return render(request, 'user-table.html', render_dict)
+		if t is not None :
+			users = AuthBase.get_user_by_group(t)
+			render_dict['users'] = users
+			return render(request, 'user-table.html', render_dict)
+		else :
+			render_dict = {
+				#'platform': platform.system() + ' ' + platform.release(),
+			}
+			return render(request, 'auth.html', render_dict)
 	
 	def user_inactivate(request) :
 		render_dict = dict()
