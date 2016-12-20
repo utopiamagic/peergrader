@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <!-- Standard Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>Admin</title>
+  <link rel="stylesheet" type="text/css" href="/static/dist/semantic.css">
+
+  <script src="http://pjax.herokuapp.com/jquery.js"></script>
+  <script src="/static/js/jquery.pjax.js"></script>
+  <script src="/static/js/menu.js"></script>
+  <script src="/static/dist/semantic.js"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      // pjax
+        $(document).pjax('a', '#pjax-container');
+    });
+    
+  </script>
+
+</head>
+<body>
+
+<div class="ui stackable container menu" style="margin-top:1em;">
+  <a class="item" href="/">Home</a>
+  <a class="item" href="#">Courses</a>
+  <a class="item" href="/auth/panel/">SuperUser</a>
+  <a class="item">Alerts</a>
+  <div class="ui category search item">
+    <div class="ui transparent icon input">
+      <input class="prompt" placeholder="Search users..." type="text">
+      <i class="search link icon"></i>
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+
+<div class="ui container">
+  <p>Instructor in charge: {{ instructor }}</p>
+  <p>Teaching Assistants: {% for ta in tas %} {{ ta.email }} {% endfor %}</p>
+  <a href="/course/all/">return to course list</a>
+  
+  <a href="/task/create/">create a new task</a>
+</div>
+
+
+<!-- Content JS HERE !-->
+<style>
+  .last.container {
+    margin-bottom: 300px !important;
+  }
+  h1.ui.center.header {
+    margin-top: 3em;
+  }
+  h2.ui.center.header {
+    margin: 4em 0em 2em;
+  }
+  h3.ui.center.header {
+    margin-top: 2em;
+    padding: 2em 0em;
+  }
+</style>
+
+
+</body></html>
