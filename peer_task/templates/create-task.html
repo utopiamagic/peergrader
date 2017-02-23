@@ -1,0 +1,111 @@
+{% extends "form_simp_base.html" %}
+
+{% block content %}
+
+<div class="ui two column stackable grid container">
+
+  <div class="column">
+    <div class="ui segment">
+<h2>General Settings</h2>
+<form action="?action=save&type=peerreview" method="post">
+    {% csrf_token %}
+    <table>
+    {{ YaziForm }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+    </div>
+  </div>
+
+
+  <div class="column">
+    <div class="ui segment">
+      <p>Currently logged in as: {{ user.username }}</p>
+      <i>platform.system() + " " + platform.release()</i>
+    </div>
+  </div>
+
+
+  <div class="column">
+    <div class="ui segment">
+<h2>Peer Review Settings</h2>
+
+<form action="?action=save&type=peerreview" method="post">
+    {% csrf_token %}
+    <table>
+    {{ YaziFormzr }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+
+
+<label>Submission Question</label><br>
+        <textarea name='submissionQuestion' id='submissionQuestion' cols='60' rows='10' class='mceEditor'/></textarea><br>
+<label>Submission&nbsp;Type</label><select name='submissionType' id='submissionTypeSelect'/><option value='essay' >Essay</option>
+<option value='articleresponse' >Article Response</option>
+<option value='image' >Image</option>
+<option value='code' >Code</option>
+</select>
+<div id='submissionTypeDivContainer'>
+<div id='essay'>
+<table width='100%' align='left'>
+<tr><td>Topic Combo Box Options (One per line)<br>Leave blank if you don't want to have a selection</td>
+<td><textarea id='essayTopicTextArea' name='essayTopicTextArea' cols='40' rows='10' wrap='off'></textarea></td><tr>
+<tr><td></td><td><input type='checkbox' name='autoAssignEssayTopic' id='autoAssignEssayTopic' ></input>&nbspAutomatically assign topic</td></tr><tr><td><table><td>Word Limit:</td><td><input type='text' name='essayWordLimit' id='essayWordLimit' size= '20' value=></input>(Set to 0 for no limit)</td></table></td></tr></table>
+</div>
+<div id='articleresponse'>
+Add one line to both fields for each article you want to use<table width='100%' align='center'>
+<tr><td>Article Names</td><td>Article Links</td></tr><tr>
+<td><textarea id='articleReviewArticleTextArea' name='articleReviewArticleTextArea' cols='40' rows='10' wrap='off'></textarea></td><td><textarea id='articleReviewLinkTextArea' name='articleReviewLinkTextArea' cols='40' rows='10' wrap='off'></textarea></td></tr><tr><td><div class=errorMsg><div class='errorField' id='error_fewArticles'></div></div></td><td><div class=errorMsg><div class='errorField' id='error_fewLinks'></div></div></td></tr>
+</table>
+</div>
+<div id='image'>
+</div>
+<div id='code'>
+<table width='100%' align='left'>
+<tr><td width='190px'>Language</td><td><input type='text' name='codeLanguage' value=''/></td></tr>
+<tr><td colspan='2'>Leave blank if you want automatic detection, otherwise look <a href='https://code.google.com/p/google-code-prettify/'>here</a> for supported languages</td></tr>
+<tr><td width='190px'>File extension </td><td><input type='text' name='codeExtension' value=''/></td></tr>
+<tr><td colspan='2'>Lower case. Leave blank if you want any type of file</td></tr>
+<tr><td width='190px''>Upload only</td><td><input type='checkbox' name='uploadOnly' /></td></tr><tr><td colspan='2'>Check to disable preview and cut-and-paste.</td></tr>
+</table>
+</div>
+</div>
+<script type='text/javascript'>
+        $('#submissionTypeSelect').change(function(){
+            $('#' + this.value).show().siblings().hide();
+        });
+        $('#submissionTypeSelect').change();
+        </script>
+<label>Submission Start Date</label><input type='text' name='submissionStartDate' id='submissionStartDate' class='dateInput'/><br/>
+<label>Submission Stop Date</label><input type='text' name='submissionStopDate' id='submissionStopDate' class='dateInput'/><br/>
+<label>Review Start Date</label><input type='text' name='reviewStartDate' id='reviewStartDate' class='dateInput'/><br/>
+<label>Review Stop Date</label><input type='text' name='reviewStopDate' id='reviewStopDate' class='dateInput'/><span id='error_reviewStopDate' style='color:red'></span><br/>
+<label>Mark Post Date</label><input type='text' name='markPostDate' id='markPostDate' class='dateInput'/><span id='error_markPostDate' style='color:red'></span><br>
+<br>
+<label>Max Submission Score</label><input type='text' name='maxSubmissionScore' id='maxSubmissionScore' value='0'/><br>
+<label>Max Review Score</label><input type='text' name='maxReviewScore' id='maxReviewScore' value='0'/><br>
+<label>Default Number of Reviews</label><input type='text' name='defaultNumberOfReviews' id='defaultNumberOfReviews' value='3'/><br>
+<label>Allow Request of Reviews</label><input type='checkbox' name='allowRequestOfReviews' id='allowRequestOfReviews'  /><br>
+<label>Appeal Stop Date</label><input type='text' name='appealStopDate' id='appealStopDate' class='dateInput'/><span id='error_appealStopDate' style='color:red'></span><br>
+<br>For reviews that I received<br><input type='checkbox' id='showMarksForReviewsReceived' name='showMarksForReviewsReceived'  >Show the marks and comments for the reviews<br>
+<br>For submissions that I reviewed<br><input type='checkbox' name='showMarksForReviewedSubmissions'  />Show the marks and comments for the submission<br>
+<input type='checkbox' name='showOtherReviewsByStudents'  />Show the other student reviews<br>
+<input type='checkbox' name='showOtherReviewsByInstructors'  />Show instructor reviews<br>
+<input type='checkbox' name='showMarksForOtherReviews'  />Show the marks and comments for other reviews of the submission<br>
+<br><br><input type='checkbox' name='showPoolStatus'  />Show independent/supervised status<br>
+<input type='hidden' name='submissionStartDateSeconds' id='submissionStartDateSeconds' />
+<input type='hidden' name='submissionStopDateSeconds' id='submissionStopDateSeconds' />
+<input type='hidden' name='reviewStartDateSeconds' id='reviewStartDateSeconds' />
+<input type='hidden' name='reviewStopDateSeconds' id='reviewStopDateSeconds' />
+<input type='hidden' name='markPostDateSeconds' id='markPostDateSeconds' />
+<input type='hidden' name='appealStopDateSeconds' id='appealStopDateSeconds' />
+<input type='hidden' name='calibrationStartDateSeconds' id='calibrationStartDateSeconds' />
+<input type='hidden' name='calibrationStopDateSeconds' id='calibrationStopDateSeconds' />
+<div id='error_blankDate' style='color:red'></div><br><br><input type='submit' value='Save' />
+</form>
+    
+    </div>
+  </div>
+</div>
+{% endblock %}

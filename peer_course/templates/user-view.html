@@ -1,0 +1,72 @@
+{% extends "form_simp_base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-10 col-md-offset-1 col-sm-12">
+    <h4 class="text-center" style="margin-top: 0px;">your assignments:</h4>
+        <p class="text-center" style="margin-bottom: 0px;font-size: 800%;">
+          <span class="glyphicon glyphicon-user">
+          </span>
+          Your grades:
+        </p>
+        <br />
+        
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <form method="post" action="/course/enroll/">
+              {% csrf_token %}
+              <input type='hidden' name="courseid" value="{{ cid }}"/>
+              <div class="input-group input-group-lg">
+                <input name="nickname" type="text" class="form-control" placeholder="Your course code:" maxlength="5">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Enter
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+ 
+  {% for c in clist %}
+    {% if not c.archived %}
+    <h5><a href="/course/{{ c.courseid }}/">{{ c.displayname }}</a> {{ c.stucode }} {{ c.tascode }} <a href="/course/{{ c.courseid }}/">users</a> action: 
+      {% if c.browsable %}
+      <a href="/course/{{ c.courseid }}/modify/?action=hide">hide</a>
+      {% else %}
+      <a href="/course/{{ c.courseid }}/modify/?action=show">show</a>
+      {% endif %} 
+          <a href="/course/{{ c.courseid }}/">edit configuration</a>
+      <a href="/course/{{ c.courseid }}/modify/?action=archive">remove</a>
+     </h5>
+     {% endif %}
+  {% endfor %}
+  
+  <div class="thumbnail">
+    <img src="..." alt="...">
+    <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  {% if not clist %}
+  <h3>Error!!!!M</h3>
+  {% endif %}
+  
+</div>
+
+
+{% endblock %}

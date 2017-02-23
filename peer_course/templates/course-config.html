@@ -1,0 +1,70 @@
+{% extends "form_simp_base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <a href="/course/{{ cid }}/">return to the course homepage</a>
+  <h2>Edit the Configuration of {{ c.displayname }}</h2>
+  
+
+
+{% if request.user.is_staff %}
+
+  <!--p>You have not set a course configuration yet.</p-->
+  <form action="/course/{{ cid }}/config/" method='post'>
+  {% csrf_token %}
+  <table>
+  {{ CCfForm }}
+  </table>
+  <input type='submit' value='Save'>
+  </form> 
+
+
+<h3>Assign Reviews</h3>
+{% csrf_token %}
+	<label for='windowsize'>Window size to judge reviewer quality</label><input type='text' name='windowsize' id='windowsize' value='4' size='10'/><br>
+
+    <label for='numreviews'>Number of reviews to assign</label><input type='text' name='numreviews' id='numreviews' value='3' size='10'/><input type='checkbox' name='assignmentdefaultnumreviews' id='assignmentdefaultnumreviews' value='assignmentdefaultnumreviews'>Use assignment default<br>
+<script type='text/javascript'>
+	if(3 < 0)
+	{
+		$('#assignmentdefaultnumreviews').prop('checked', true);
+		$('#numreviews').val('3');
+	}
+	$('input:radio[name=exhaustedCondition]:nth(0)').attr('checked',true);
+	$('#assignmentdefaultnumreviews').change(function(){
+		if(this.checked){
+			$('#numreviews').prop('disabled', true)
+		}else{
+			$('#numreviews').prop('disabled', false)
+		}
+    });
+    $('#assignmentdefaultnumreviews').change();
+    </script>
+<h3>Autograde and Assign Markers</h3>
+	<label>Min Reviews for Auto-Grade</label>
+	<input type='text' name='minReviews' id='minReviews' value='3' size='10'/><br>
+
+	<label>Auto Spot Check Probability</label>
+	<input type='text' name='spotCheckProb' id='spotCheckProb' value='0.25' size='10'/>(should be between 0 and 1)<br/>
+
+	<label>High Mark Threshold</label>
+	<input type='text' name='highMarkThreshold' value='80' size='10'/>%<br/>
+
+	<label>High Mark Bias</label><input type='text' name='highMarkBias' value='1' size='10'/><br/>
+
+	<label>Low Calibration Threshold</label>
+	<input type='text' name='calibrationThreshold' value='7.5' size='10'/><br/>
+
+	<label>Calibration Bias</label>
+	<input type='text' name='calibrationBias' value='1' size='10'/><br/>
+<h3>Marking Loads</h3>
+set marking load for:
+{% for p in teaching_assistant %}
+<label>{{ p.name }}'s Load</label><input type='text' name='load1' value='1' size='30'/><br/>
+{% endfor %}
+
+{% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "form_simp_base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-6 col-md-offset-3 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p class="text-center" style="margin-bottom: 0px;font-size: 800%;">
+          <span class="glyphicon glyphicon-user">
+          </span>
+        </p>
+        <br />
+        <h4>{{ error }}</h4>
+        <h4 class="text-center" style="margin-top: 0px;">Please enter your course code:</h4>
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <form method="post" action="/course/{{ cid }}/enroll/">
+              {% csrf_token %}
+              <input type='hidden' name="courseid" value="{{ cid }}"/>
+              <div class="input-group input-group-lg">
+                <input name="coursecode" type="text" class="form-control" placeholder="Your course code:" maxlength="14">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Enter
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

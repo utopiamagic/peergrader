@@ -1,0 +1,33 @@
+{% extends "form_simp_base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-md-offset-2">
+    <div class="page-header">
+      <h2>User {{ u.last_name }} {{ u.first_name }}</h2>
+    </div>
+    <div class="panel panel-default"> 
+    <h4>CWL ID <small>{{ u.username }}</small></h4>
+    <h4>Email <small>{{ u.email }}</small></h4>
+    <h4>staff? <small>{{ u.is_staff }}</small></h4>
+    <h4>admin? <small>{{ u.is_superuser }}</small></h4>
+    </div>
+    <h4><i>Ask your instructor to revise your CWL ID.</i></h4>
+  </div>
+
+  <div class="col-sm-12 col-md-4">
+    <div class="page-header">
+      <h2>Edit User Profile</h2>
+    </div>
+    <div class="panel panel-default"> 
+    <h4>CWL ID <small>{{ u.username }}</small></h4>
+    <h4>Email <small>{{ u.email }}</small></h4>
+    <h4>staff? <small>{{ u.is_staff }}</small></h4>
+    <h4>admin? <small>{{ u.is_superuser }}</small></h4>
+    </div>
+    <h4><i>Ask your instructor to revise your CWL ID.</i></h4>
+  </div>
+</div>
+</div>
+{% endblock %}
