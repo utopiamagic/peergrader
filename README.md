@@ -4,7 +4,7 @@ peer_auth:
 -----------
 + Authentication system
 
-peer_quest:
+peer_task:
 --------------
 + tasks yet-to-be-solved in a course
 
@@ -58,11 +58,3 @@ Permissions
 * add/edit courses
 ## teaching-assistant | student
 * update {password, name, Student ID}
-
-Log
-=======
-* Nov, 24: 4 hrs
-* Nov, 26: 2 hrs
-* Nov, 28: 4 hrs
-* Nov, 29: 3 hrs
-* Dec, 19: 5 hrs

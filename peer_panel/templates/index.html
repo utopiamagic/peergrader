@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properties -->
-  <title>Homepage - UBC PeerGrader</title>
+  <title>Homepage - MTaNG</title>
   <link rel="stylesheet" type="text/css" href="/static/dist/components/reset.css">
   <link rel="stylesheet" type="text/css" href="/static/dist/components/site.css">
 
@@ -135,8 +135,8 @@
           <i class="sidebar icon"></i>
         </a>
         <a class="active item">Home</a>
-        <a class="item">Courses</a>
-        <a class="item">About</a>
+        <a href="/course/all/" class="item">Courses</a>
+        <!--       <a href="/account/fetch/" class="item">Admin</a> -->
         <div class="right item">
           {% if logged_in %}
           <a class="ui inverted button" href="/account/logout/">Log out</a>
@@ -150,7 +150,7 @@
 
     <div class="ui text container">
       <h1 class="ui inverted header">
-        UBC PeerGrader
+        MeTA:ng
       </h1>
       <h2 style="margin-bottom:3em;">The Next-generation Mechanical TA</h2>
       {% if logged_in %}
@@ -171,7 +171,7 @@
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Instructor</th>
+                <th>Archived</th>
                 <th class="right aligned">Notes</th>
               </tr>
             </thead>
@@ -179,7 +179,7 @@
               {% for c in courses %}
               <tr>
                 <td><a href="/course/{{ c.courseid }}/">{{ c.displayname }}</a></td>
-                <td>{{ c.registrationtype }}</td>
+                <td>{{ c.archived }}</td>
                 <td class="right aligned">{{ c.browsable }}</td>
               </tr>
               {% endfor %}

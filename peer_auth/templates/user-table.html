@@ -16,8 +16,12 @@
         <td>
   <div class="item">
     <div class="ui tiny buttons">
-      <button id="button-edit" class="ui inverted yellow button">Edit</button>
+      <button id="button-edit" class="ui inverted blue button">Edit</button>
       <!--<button class="ui inverted orange button">Deregister</button>-->
+      {% if not user.is_staff %}
+      <a class="ui inverted yellow button" href="/account/{{ user.id }}/promote/">Promote</a>
+      {% else %}
+      {% endif %}
       {% if user.is_active %}
       <a class="ui inverted red button" href="/account/inactivate/?username={{ user.username }}">Remove</a>
       {% else %}

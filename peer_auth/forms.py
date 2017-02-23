@@ -17,7 +17,7 @@ class UserForm(ModelForm):
 		
 	def clean_username(self):
 		data = self.cleaned_data['username']
-		if re.match("\d{7,8}", data) is None:
-			raise forms.ValidationError("Student ID is not correct")
+		if re.match("\d{5,10}", data) is None:
+			raise forms.ValidationError("Student/Employee ID is not correct")
 		return data
 

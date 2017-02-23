@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User, Group, Permission
 
 # Create your views here.
@@ -86,6 +86,14 @@ class AuthBase :
 	def find_by_name(name) :
 		pass
 	
+	def find_by_id(uid) :
+		return User.objects.get(id=uid)
+		
+	def promote(uid) :
+		u = User.objects.filter(id=uid).update	\
+			(is_superuser=True, is_staff=True)
+		return u
+	
 class AuthViews :
 	@never_cache
 	def user_signup(request):
@@ -133,6 +141,19 @@ class AuthViews :
 		logout(request)
 		return HttpResponseRedirect('/')
 		
+	@never_cache
+	def user_promote(request, uid):
+		'Promote the current user'
+		render_dict = dict()
+		#t = request.GET.get('role')
+		AuthBase.promote(uid)
+		AuthBase.set_group("superuser", AuthBase.find_by_id(uid))
+		render_dict = {
+			'good': "",
+		}
+		#return render(request, 'success.html', render_dict)
+		return render(request, 'auth.html', render_dict)
+		
 	def user_fetch(request) :
 		render_dict = dict()
 		t = request.GET.get('type')
@@ -165,11 +186,25 @@ class AuthViews :
 				new_user.set_password(u.cleaned_data['password'])
 				new_user.save()
 				AuthBase.set_group(request.POST.get('groups'), new_user)
-				return HttpResponseRedirect('/auth/panel/')
-			return HttpResponseRedirect('/auth/panel/')
+				return HttpResponseRedirect('/account/fetch/')
+			return HttpResponseRedirect('/account/fetch/')
 		else :
 			t = request.GET.get('type')
 			if t == 'create' :
 				return render(request, 'complete-signup.html', render_dict)
 			else :
 				return render(request, 'rename.html', render_dict)
+
+	def password_change(request):
+		if request.method == 'POST':
+			form = PasswordChangeForm(user=request.user, data=request.POST)
+			if form.is_valid():
+				form.save()
+				update_session_auth_hash(request, form.user)
+		else:
+			pass
+			
+	def user_iden(request, uid) :
+		render_dict = dict()
+		render_dict['u'] = AuthBase.find_by_id(uid)
+		return render(request, 'user-iden.html', render_dict)

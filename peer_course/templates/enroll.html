@@ -1,54 +1,37 @@
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <!-- Standard Meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+{% extends "form_simp_base.html" %}
 
-  <!-- Site Properties -->
-  <title>Admin</title>
-  <link rel="stylesheet" type="text/css" href="/static/dist/semantic.css">
+{% block content %}
 
-  <script src="http://pjax.herokuapp.com/jquery.js"></script>
-  <script src="/static/js/jquery.pjax.js"></script>
-  <script src="/static/js/menu.js"></script>
-  <script src="/static/dist/semantic.js"></script>
-
-  <script type="text/javascript">
-    $(function(){
-      // pjax
-        $(document).pjax('a', '#pjax-container');
-    });
-    
-  </script>
-
-</head>
-<body>
-
-<div class="ui stackable container menu" style="margin-top:1em;">
-  <a class="item" href="/">Home</a>
-  <a class="item" href="#">Courses</a>
-  <a class="item" href="/auth/panel/">SuperUser</a>
-  <a class="item">Alerts</a>
-  <div class="ui category search item">
-    <div class="ui transparent icon input">
-      <input class="prompt" placeholder="Search users..." type="text">
-      <i class="search link icon"></i>
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-10 col-md-offset-1 col-sm-12">
+    <h4 class="text-center" style="margin-top: 0px;">your assignments:</h4>
+        <p class="text-center" style="margin-bottom: 0px;font-size: 800%;">
+          <span class="glyphicon glyphicon-user">
+          </span>
+          
+        </p>
+        <br />
+        
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <form method="post" action="/course/enroll/">
+              {% csrf_token %}
+              <input type='hidden' name="courseid" value="{{ cid }}"/>
+              <div class="input-group input-group-lg">
+                <input name="nickname" type="text" class="form-control" placeholder="Your course code:" maxlength="5">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Enter
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="results"></div>
   </div>
 </div>
 
-<div class="ui container">
-  <form action="/course/enroll/" method="POST">
-    Please enter the course code:
-    <input type="text" name="coursecode"/>
-    <input type="text" name="courseid" value="{{ cid }}"/>
-    <buttom type="submit">Enter</button>
-  </form>
-</div>
-
-
-
-</body></html>
+{% endblock %}

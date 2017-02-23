@@ -1,101 +1,137 @@
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <!-- Standard Meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+{% extends "form_simp_base.html" %}
 
-  <!-- Site Properties -->
-  <title>Admin</title>
-  <link rel="stylesheet" type="text/css" href="/static/dist/semantic.css">
+{% block content %}
+<script src="/static/js/bootstrap-select.min.js"></script>
+<link href="/static/css/bootstrap-select.min.css" rel="stylesheet">
 
-  <script src="http://pjax.herokuapp.com/jquery.js"></script>
-  <script src="/static/js/jquery.pjax.js"></script>
-  <script src="/static/js/menu.js"></script>
-  <script src="/static/dist/semantic.js"></script>
-
-  <script type="text/javascript">
-    $(function(){
-      // pjax
-        $(document).pjax('a', '#pjax-container');
-    });
-    
-  </script>
-
-</head>
-<body>
-
-<div class="ui stackable container menu" style="margin-top:1em;">
-  <a class="item" href="/">Home</a>
-  <a class="item" href="#">Courses</a>
-  <a class="item" href="/auth/panel/">SuperUser</a>
-  <a class="item">Alerts</a>
-  <div class="ui category search item">
-    <div class="ui transparent icon input">
-      <input class="prompt" placeholder="Search users..." type="text">
-      <i class="search link icon"></i>
+<script>
+// To style all <select>s
+$('select').selectpicker();
+</script>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-12 col-md-4">
+    <div class="page-header">
+      <h2>User Status</h2>
     </div>
-    <div class="results"></div>
+    <h4>Student ID <small>{{ u.username }}</small></h4>
+    <h4>Email <small>{{ u.email }}</small></h4>
+    <h4>First Name <small>{{ u.first_name }}</small></h4>
+    <h4>Last Name <small>{{ u.last_name }}</small></h4>
+    <a class="btn btn-primary" href="/account/{{ u.id }}/">Edit</a>
+    {% if u.is_staff %}
+    <div class="page-header">
+      <h2>Create a new course</h2>
+    </div>
+    <form method="post" action="/course/create/">
+      {% csrf_token %}
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Course name </span>
+        <input type="text" class="form-control" placeholder="e.g. CPSC 121 WT2" name="cname" aria-describedby="basic-addon1">
+      </div>
+      <h5>Browsable:</h5> 
+      <select  class="selectpicker" name="browsable">
+        <option value="true" selected>True</option> 
+        <option value="false">False</option>
+      </select>
+      <h5>Archived:</h5> 
+      <select class="selectpicker" name="archived">
+        <option value="true">True</option> 
+        <option value="false" selected>False</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% else %}
+
+    <div class="page-header">
+              <h2>Enroll in a new course</h2>
+    </div>
+            <form method="post" action="/course/enroll/">
+              {% csrf_token %}
+
+              <div class="input-group input-group-sm">
+                <input name="coursecode" type="text" class="form-control" placeholder="Your course code:" maxlength="14">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Enroll
+                  </button>
+                </span>
+              </div>
+            </form>
+    {% endif %}
   </div>
-</div>
-
-<div class="ui container">
-  <h3>courses in progress</h3>
-  {% for c in clist %}
-    {% if not c.archived %}
-    <h5>{{ c.displayname }} {{ c.stucode }} {{ c.tascode }} <a href="/course/{{ c.courseid }}/">users</a> action: 
-      {% if c.browsable %}
-      <a href="/course/{{ c.courseid }}/?action='hide'">hide</a>
+  <div class="col-sm-12 col-md-8">
+    <div class="page-header">
+      {% if u.is_staff %}
+      <h2>All Available Courses</h2>
       {% else %}
-      <a href="/course/{{ c.courseid }}/?action='show'">show</a>
-      {% endif %} 
+      <h2>Courses Enrolled</h2>
+      {% endif %}
+    </div>
     
-      <a href="/course/{{ c.courseid }}/?action='archive'">remove</a>
-     </h5>
-     {% endif %}
-  {% endfor %}
-  
-  {% if not clist %}
-  <h3>Error!!!!M</h3>
-  {% endif %}
-  
-  <h2>Create a new course</h2>
-  <form method="post" action="/course/create/">
-  {% csrf_token %}
-    Course name: <input name="cname" type="text"/>
-    Browsable: 
-    <select name="browsable">
-  <option value="true" selected>True</option> 
-  <option value="false">False</option>
-</select>
-    Archived: 
-    <select name="archived">
-  <option value="true">True</option> 
-  <option value="false" selected>False</option>
-</select>
-    <button type="submit">submit</button>
-  </form>
+    <div class="panel panel-default"> 
+      {% if u.is_staff %}
+      <table class="table"> 
+        <thead> <tr> <th>#</th> <th>Display Name</th> <th>Student Access Code</th> <th>TA Access Code</th> <th>Browsable?</th> <th>Control</th> </tr> </thead> 
+        <tbody> 
+        {% for c in clist %}
+        <tr> <th scope="row">{{ forloop.counter }}</th> 
+          <td><a href="/course/{{ c.courseid }}/">{{ c.displayname }}</a></td> 
+          <td><code>{{ c.stucode }}</code></td> 
+          <td><code>{{ c.tascode }}</code></td> 
+          <td><kbd>{{ c.browsable }}</kbd></td> 
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="caret"></span> Control
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#">
+                  {% if c.browsable %}
+                  <a href="/course/{{ c.courseid }}/modify/?action=hide" target="_ntab">hide</a>
+                  {% else %}
+                  <a href="/course/{{ c.courseid }}/modify/?action=show" target="_ntab">show</a>
+                  {% endif %} 
+                </li>
+                <li><a href="/course/{{ c.courseid }}/modify/?action=delete" target="_ntab">delete</a></li>
+                <li><a href="/course/{{ c.courseid }}/members/">see users</a></li>
+                <li><a href="/course/{{ c.courseid }}/config/">config</a></li>
+              </ul>
+            </div>
+          </td> 
+        </tr>
+        {% endfor %}
+        </tbody> 
+      </table>
+      {% else %}
+        {% if not clist %}
+        <div class="alert alert-info" role="alert" style="margin: 4px;">
+  <a href="#" class="alert-link">No course information available</a>
+</div>
+        {% endif %}
+      <table class="table"> 
+        <thead> <tr> <th>#</th> <th>Display Name</th> <th>Status Message</th> <th>Control</th> </tr> </thead> 
+        <tbody> 
+        {% for c in clist %}
+        <tr> <th scope="row">{{ forloop.counter }}</th> 
+          <td>{{ c.displayname }}</td> 
+          <td><code> c.stumsg </code></td> 
+          <td>
+              <a href="/course/{{ c.courseid }}/" class="btn btn-default btn-sm" type="button">
+                 Open
+              </a>
+          </td> 
+        </tr>
+        {% endfor %}
+        </tbody> 
+      </table>
+      {% endif %}
+    </div>
+    
+    
+    
+  </div>
   
 </div>
-
-
-<!-- Content JS HERE !-->
-<style>
-  .last.container {
-    margin-bottom: 300px !important;
-  }
-  h1.ui.center.header {
-    margin-top: 3em;
-  }
-  h2.ui.center.header {
-    margin: 4em 0em 2em;
-  }
-  h3.ui.center.header {
-    margin-top: 2em;
-    padding: 2em 0em;
-  }
-</style>
-
-
-</body></html>
+</div>
+{% endblock %}

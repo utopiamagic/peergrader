@@ -8,5 +8,7 @@ urlpatterns = [
 	url(r'^logout/$', AuthViews.user_logout),
 	url(r'^fetch/$', AuthViews.user_fetch),
 	url(r'^form/$', AuthViews.signup_form),
+	url(r'^([0-9]+)/promote/$', AuthViews.user_promote),
+	url(r'^([0-9]+)/$', AuthViews.user_iden),
 	url(r'^inactivate/$', AuthViews.user_inactivate),
 ]

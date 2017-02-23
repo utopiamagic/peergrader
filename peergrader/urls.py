@@ -25,5 +25,7 @@ urlpatterns = [
 	url(r'^', include('peer_panel.urls')),
 	url(r'^account/', include('peer_auth.urls')),
 	url(r'^course/', include('peer_course.urls')),
+	url(r'^task/', include('peer_task.urls')),
+	#url(r'^review/', include('peer_review.urls')),
 	#url(r'^admin/', include(admin.site.urls)),
 ]
