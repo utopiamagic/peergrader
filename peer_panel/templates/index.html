@@ -135,7 +135,7 @@
           <i class="sidebar icon"></i>
         </a>
         <a class="active item">Home</a>
-        <a href="/course/all/" class="item">Courses</a>
+        <a href="/course/list/" class="item">Courses</a>
         <!--       <a href="/account/fetch/" class="item">Admin</a> -->
         <div class="right item">
           {% if logged_in %}
@@ -161,38 +161,6 @@
     </div>
 
   </div>
-
-  <div class="ui vertical stripe segment" style="background-image: url('/static/images/paper.png');">
-    <div class="ui middle aligned stackable grid container">
-      <div class="row">
-        <div class="eight wide column">
-          <h3 class="ui header">Courses</h3>
-          <table class="ui selectable inverted table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Archived</th>
-                <th class="right aligned">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for c in courses %}
-              <tr>
-                <td><a href="/course/{{ c.courseid }}/">{{ c.displayname }}</a></td>
-                <td>{{ c.archived }}</td>
-                <td class="right aligned">{{ c.browsable }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <div class="three wide right floated column computer only">
-          <img src="/static/images/ubc-logo-blue.png" class="ui large bordered rounded image">
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="ui inverted vertical footer segment">
     <div class="ui container">
       <div class="ui stackable inverted divided equal height stackable grid">

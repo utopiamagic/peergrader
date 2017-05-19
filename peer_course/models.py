@@ -32,6 +32,7 @@ class CourseMember(models.Model):
     userid = models.IntegerField(null=False)
     usertype = models.CharField(max_length=128)
     markingload = models.FloatField(db_column='markingload', null=True)
+    #supervised = models.BooleanField()
     class Meta:
         db_table = 'course_member'
         

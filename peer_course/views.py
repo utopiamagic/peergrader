@@ -197,7 +197,26 @@ class CourseViews :
 				render_dict['course'] = c
 			return render(request, 'create-course.html', render_dict)
 		
-	def listing(request) :
+	def list_specific(request) :
+		"List all the courses of a certain instructor or a student"
+		render_dict = dict()
+		if request.method == 'POST' :
+			pass
+		else :
+			if not request.user.is_authenticated() :
+				return HttpResponseRedirect("/account/login/")
+			render_dict["u"] = request.user
+			if request.user.is_staff :
+				render_dict["admin"] = True
+				render_dict["clist"] = CourseBase.all()
+				print(render_dict["clist"])
+			else :
+				render_dict["clist"] = CourseBase.find_enrolled_courses(request.user.id)
+				print(CourseMember.objects.filter(userid=request.user.id))
+			return render(request, 'courses-list.html', render_dict)
+
+	def list_brief(request) :
+		"List a list of courses without specific information"
 		render_dict = dict()
 		if request.method == 'POST' :
 			pass

@@ -9,6 +9,7 @@ urlpatterns = [
 	url(r'^([0-9]+)/modify/$', CourseViews.modify),
 	url(r'^([0-9]+)/members/$', CourseViews.members),
 	url(r'^([0-9]+)/config/$', CourseViews.config),
-	url(r'^all/$', CourseViews.listing),
+	url(r'^all/$', CourseViews.list_specific),
+	url(r'^list/$', CourseViews.list_brief),
 	#url(r'^(\d)+/marking/$', CourseViews.listing),
 ]
