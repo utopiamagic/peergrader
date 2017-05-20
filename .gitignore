@@ -54,6 +54,7 @@ coverage.xml
 local_settings.py
 settings.bak.py
 settings.py
+migrations/
 
 # Flask stuff:
 instance/

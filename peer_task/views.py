@@ -25,10 +25,10 @@ class TaskViews() :
 				return HttpResponseRedirect('/thanks/')
 		# if a GET (or any other method) we'll create a blank form
 		else:
-			if request.session["stage"] == "details" :
-				pass
-			elif request.session["stage"] == "datetime" :
-				form = AssignmentForm()
+			#if request.session["stage"] == "details" :
+			#	pass
+			#elif request.session["stage"] == "datetime" :
+			#	form = AssignmentForm()
 			formb = ReviewSettingsForm()
 		return render(request, 'create-task.html', {'YaziForm': form, 'YaziFormzr': formb,})
 
